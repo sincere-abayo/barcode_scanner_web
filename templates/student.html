@@ -1,0 +1,195 @@
+      {% extends "base.html" %}
+      {% block content %}
+
+      <div class="bg-black p-5 rounded">
+         
+
+              <div class="text-end mb-4">
+                  <button class="text-white bg-yellow-600 px-5 py-1 rounded" id="openModalBtn">  <i class="fa fa-circle-plus"></i> Add Student</button> 
+           </div>
+
+       <!-- Search Bar -->
+        <div class="mb-4 flex">
+            <input type="text" id="searchInput" placeholder="Search students..." class="w-64 p-2 bg-zinc-800 text-white rounded-l">
+            <button id="searchButton" class="bg-yellow-600 text-white px-3 py-2 rounded-r"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="overflow-x-auto">
+
+       <table class="w-full text-white">
+              <thead>
+                  <tr>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Names <i class="fa-solid fa-sort"></i></th>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">Reg No <i class="fa-solid fa-sort"></i></th>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial"> Department <i class="fa-solid fa-sort"></i></th>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="details"> Program <i class="fa-solid fa-sort"></i></th>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Gender <i class="fa-solid fa-sort"></i></th>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Year of Study <i class="fa-solid fa-sort"></i></th>
+                  </tr>
+              </thead>
+              <tbody id="tableRow">
+                  <tr>
+                      <td class="border-b border-zinc-700 px-4 py-3">1</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">John Doe</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">REG001</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Computer Science</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Bachelor of Science</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Male</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">2</td>
+                  </tr>
+                  <tr>
+                      <td class="border-b border-zinc-700 px-4 py-3">2</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Jane Smith</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">REG002</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Engineering</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Bachelor of Engineering</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Female</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">3</td>
+                  </tr>
+                  <tr>
+                      <td class="border-b border-zinc-700 px-4 py-3">3</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Mike Johnson</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">REG003</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Business</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Bachelor of Business Administration</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">Male</td>
+                      <td class="border-b border-zinc-700 px-4 py-3">1</td>
+                  </tr>
+              </tbody>
+          </table>
+   
+          </div>
+      </div>
+
+
+       <!-- Modal Structure -->
+       <div id="productModal" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex items-center justify-center">
+              <div class="bg-black p-4 sm:p-8 rounded-lg w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl m-2 sm:m-5 overflow-y-auto max-h-screen">
+                <h2 class="text-xl sm:text-2xl mb-4">Add Student</h2>
+                <form id="productFormId" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="my-2">
+                      <label for="studentName" class="block mb-2 sm:mb-3 text-lg sm:text-xl text-white font-medium">Student Name</label>
+                      <div class="relative">
+                          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                              <i class="fas fa-user text-gray-200"></i>
+                          </span>
+                          <input class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="studentName" placeholder="Student Name" required>
+                      </div>
+                  </div>
+                  <div class="my-2">
+                      <label for="regNo" class="block mb-2 sm:mb-3 text-lg sm:text-xl text-white font-medium">Registration Number</label>
+                      <div class="relative">
+                          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                              <i class="fas fa-id-card text-gray-200"></i>
+                          </span>
+                          <input class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="regNo" placeholder="Registration Number" required>
+                      </div>
+                  </div>
+                  <div class="my-2">
+                      <label for="department" class="block mb-2 sm:mb-3 text-lg sm:text-xl text-white font-medium">Department</label>
+                      <div class="relative">
+                          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                              <i class="fas fa-building text-gray-200"></i>
+                          </span>
+                          <select class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="department" id="department" required>
+                              <option value="" selected disabled> --Select Department-- </option>
+                              <option value="Computer Science">Computer Science</option>
+                              <option value="Engineering">Engineering</option>
+                              <option value="Business">Business</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="my-2">
+                      <label for="program" class="block mb-2 sm:mb-3 text-lg sm:text-xl text-white font-medium">Program</label>
+                      <div class="relative">
+                          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                              <i class="fas fa-graduation-cap text-gray-200"></i>
+                          </span>
+                          <select class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="program" id="program" required>
+                              <option value="" selected disabled> --Select Program--</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="my-2">
+                      <label for="gender" class="block mb-2 sm:mb-3 text-lg sm:text-xl text-white font-medium">Gender</label>
+                      <div class="relative">
+                          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                              <i class="fas fa-venus-mars text-gray-200"></i>
+                          </span>
+                          <select class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="gender" required>
+                              <option value="" selected disabled > --Select Gender--</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                              <option value="Other">Other</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="my-2">
+                      <label for="yearOfStudy" class="block mb-2 sm:mb-3 text-lg sm:text-xl text-white font-medium">Year of Study</label>
+                      <div class="relative">
+                          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                              <i class="fas fa-calendar-alt text-gray-200"></i>
+                          </span>
+                          <select class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="yearOfStudy" required>
+                              <option value="" selected disabled> --Select Year of Study--  </option>
+                              <option value="Year 1">Year 1</option>
+                              <option value="Year 2">Year 2</option>
+                              <option value="Year 3">Year 3</option>
+                              <option value="B-Tech">B-Tech</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="md:col-span-2 my-2">
+                    <label for="rfid" class="block mb-3 text-xl text-white font-medium">RFID</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <i class="fas fa-microchip text-gray-200"></i>
+                        </span>
+                        <input id="rfid" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="rfid" placeholder="RFID" required>
+                    </div>
+                </div>
+
+                  <div class="md:col-span-2  flex flex-col sm:flex-row justify-center mt-6 space-y-2 sm:space-y-0 sm:space-x-4">
+                      <button type="button" id="closeModalBtn" class="bg-zinc-600 text-white px-6 sm:px-10 py-2 rounded">Cancel</button>
+                      <button type="submit" class="bg-yellow-600 text-white px-6 sm:px-10 py-2 rounded">Save Student</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+            
+
+          <script src="static/Js/modal.js"></script>
+          <script src="static/Js/search.js"></script>
+          
+          <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  const departmentSelect = document.getElementById('department');
+                  const programSelect = document.getElementById('program');
+                  const productTableBody = document.getElementById('productTableBody');
+
+                  const programsByDepartment = {
+                      'Computer Science': ['Bachelor of Science in Computer Science', 'Master of Science in Computer Science'],
+                      'Engineering': ['Bachelor of Engineering', 'Master of Engineering'],
+                      'Business': ['Bachelor of Business Administration', 'Master of Business Administration']
+                  };
+
+                  departmentSelect.addEventListener('change', function() {
+                      const selectedDepartment = this.value;
+                      programSelect.innerHTML = '<option value="">Select Program</option>';
+
+                      if (selectedDepartment in programsByDepartment) {
+                          programsByDepartment[selectedDepartment].forEach(function(program) {
+                              const option = document.createElement('option');
+                              option.value = program;
+                              option.textContent = program;
+                              programSelect.appendChild(option);
+                          });
+                      }
+                  });
+
+                
+              });
+          </script>
+
+      {% endblock %}

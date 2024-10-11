@@ -1,0 +1,69 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Dashboard</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="static/Js/tailwind.js"></script>
+
+      <!-- fontawesome -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <style>
+        @media (max-width: 768px) {
+          .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 50;
+          }
+          .sidebar-open {
+            transform: translateX(0);
+            
+          }
+        }
+      </style>
+    </head>
+
+    <body class="bg-zinc-950">
+        <!-- Top Nav -->
+        <div class="bg-black text-white p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
+            <div>
+              <button id="menu-btn" class="block md:hidden text-white">
+                <i class="fa fa-bars text-yellow-600"></i>
+              </button>
+            </div>
+            <h1 class="text-xl text-yellow-600">Dashboard</h1>
+            <div>
+              <span class="text-xl text-yellow-600">User Profile</span>
+            </div>
+          </div>
+    
+          <div class="flex h-screen">
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar pt-20 bg-black w-64 min-h-screen p-4 md:block fixed left-0 top-0 overflow-y-auto">
+              <ul class="space-y-5">
+                <li><a href="/dashboard" class="text-white text-xl hover:border-b-2 hover:border-yellow-600 hover:text-yellow-600 p-1 "> <i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+                <li><a href="/product" class="text-white text-xl hover:border-b-2 hover:border-yellow-600 hover:text-yellow-600 p-1 "> <i class="fa-solid fa-cubes-stacked"></i> Products</a></li>
+                <li><a href="/student" class="text-white text-xl hover:border-b-2 hover:border-yellow-600 hover:text-yellow-600 p-1 "> <i class="fa-solid fa-user-graduate"></i> Students</a></li>
+                <li><a href="/users" class="text-white text-xl hover:border-b-2 hover:border-yellow-600 hover:text-yellow-600 p-1 "> <i class="fa-solid fa-users"></i> Users</a></li>
+                <li><a href="/report" class="text-white text-xl hover:border-b-2 hover:border-yellow-600 hover:text-yellow-600 p-1 "> <i class="fa-solid fa-file-lines"></i> Reports</a></li>
+                <li><a href="#" class="text-white text-xl hover:border-b-2 hover:border-yellow-600 hover:text-yellow-600 p-1 "> <i class="fa-solid fa-gear"></i> Settings</a></li>
+                <li><a href="#" class="text-white text-xl hover:border-b-2 hover:border-yellow-600 hover:text-yellow-600 p-1 "> <i class="fa-solid fa-user-shield"></i> Profile</a></li>
+              </ul>
+            </div>
+            <!-- Main Content -->
+            <div class="w-full md:w-4/5 p-6 md:ml-64 mt-16 mb-16">
+              
+                {% block content %}
+                <!-- Page-specific content goes here -->
+                {% endblock %}
+            </div>
+        </div>
+        <!-- Add any common scripts here -->
+    </body>
+    </html>

@@ -1,0 +1,308 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="bg-black p-5 rounded">
+            <div class="text-end mb-4">
+                 <button class="text-white bg-yellow-600 px-5 py-1 rounded" id="openModalBtn">  <i class="fa fa-circle-plus"></i> Add new product</button> 
+            </div>
+            <div class="mb-4 flex">
+                <input type="text" id="searchInput" placeholder="Search products..." class="w-64 p-2 bg-zinc-800 text-white rounded-l">
+                <button id="searchButton" class="bg-yellow-600 text-white px-3 py-2 rounded-r"><i class="fa fa-search"></i></button>
+            </div>
+            <div class="overflow-x-auto">
+               
+                <table class="w-full text-white">
+                    <thead>
+                        <tr>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Product Name <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">category <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial">Serial Number <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="details">Details <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Owner <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Registered <i class="fa-solid fa-sort"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+                
+
+            </div>
+            <div class="mt-4 flex justify-between items-center">
+                <div>
+                    <span class="text-zinc-400">Showing <span id="startIndex">1</span> to <span id="endIndex">10</span> of <span id="totalItems">0</span> entries</span>
+                </div>
+                <div>
+                    <button id="prevBtn" class="bg-yellow-600 text-white px-3 py-1 rounded mr-2">« Previous</button>
+                    <button id="nextBtn" class="bg-yellow-600 text-white px-3 py-1 rounded">Next »</button>
+                </div>
+            </div>
+        </div>
+   
+
+        <!-- Modal Structure -->
+        <div id="productModal" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div class="bg-black p-8 rounded-lg md:w-1/2 w-full m-5">
+            <h2 class="text-2xl mb-4">Add Product</h2>
+            <form id="productFormId" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="my-2">
+                  <label for="productName" class="block mb-3 text-xl text-white font-medium">Product Name</label>
+                  <div class="relative">
+                      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                          <i class="fas fa-box text-gray-200"></i>
+                      </span>
+                      <input id="productName" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="productName" placeholder="Product Name" required>
+                  </div>
+              </div>
+
+              <div class="my-2">
+                <label for="productType" class="block mb-3 text-xl text-white font-medium">Categories</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="fas fa-tags text-gray-200"></i>
+                    </span>
+                    <select id="productType" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="productType" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Electronic Device">Electronic Device</option>
+                        <option value="Spare Part">Spare Part</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+            </div>
+
+
+              <div class="my-2">
+                  <label for="owner" class="block mb-3 text-xl text-white font-medium">Owner</label>
+                  <div class="relative">
+                      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                          <i class="fas fa-user text-gray-200"></i>
+                      </span>
+                      <input id="owner" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="owner" placeholder="Owner" required>
+                  </div>
+              </div>
+
+              <div class="my-2">
+                  <label for="barcode" class="block mb-3 text-xl text-white font-medium">Barcode</label>
+                  <div class="relative">
+                      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                          <i class="fas fa-barcode text-gray-200"></i>
+                      </span>
+                      <input id="barcode" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="barcode" placeholder="Barcode" required>
+                  </div>
+              </div>
+
+              <div class="my-2">
+                  <label for="rfid" class="block mb-3 text-xl text-white font-medium">RFID</label>
+                  <div class="relative">
+                      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                          <i class="fas fa-microchip text-gray-200"></i>
+                      </span>
+                      <input id="rfid" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="rfid" placeholder="RFID" required>
+                  </div>
+              </div>
+
+              <div class="my-2">
+                  <label for="description" class="block mb-3 text-xl text-white font-medium">Description</label>
+                  <div class="relative">
+                      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                          <i class="fas fa-file-alt text-gray-200"></i>
+                      </span>
+                      <textarea id="description" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="description" placeholder="Description" required></textarea>
+                  </div>
+              </div>
+
+              <div class="my-2">
+                <label for="serialNumber" class="block mb-3 text-xl text-white font-medium">Serial Number</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="fas fa-microchip text-gray-200"></i>
+                    </span>
+                    <input id="serialNumber" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="serialNumber" placeholder="Serial Number" required>
+                </div>
+            </div>
+
+
+              <!-- Add other form fields as needed -->
+
+              <div class="col-span-2 flex flex-col sm:flex-row justify-between mt-6">
+                <button type="button" id="closeModalBtn" class="bg-zinc-600 text-white px-10 py-2 rounded mb-2 sm:mb-0">Cancel</button>
+                <button type="submit" class="bg-yellow-600 text-white px-10 py-2 rounded">Save Product</button>
+            </div>
+            </form>
+     
+     
+          </div>
+        </div>
+
+
+  <script src="static/Js/modal.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', fetchProducts);
+
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('sidebar-open');
+    });
+
+    // Close sidebar when clicking outside of it
+    document.addEventListener('click', (event) => {
+      const isClickInsideMenu = menuBtn.contains(event.target);
+      const isClickInsideSidebar = sidebar.contains(event.target);
+
+      if (!isClickInsideMenu && !isClickInsideSidebar && sidebar.classList.contains('sidebar-open')) {
+        sidebar.classList.remove('sidebar-open');
+      }
+    });
+
+    // Pagination and data loading
+    const productTableBody = document.getElementById('productTableBody');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const startIndexSpan = document.getElementById('startIndex');
+    const endIndexSpan = document.getElementById('endIndex');
+    const totalItemsSpan = document.getElementById('totalItems');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    const itemsPerPage = 10;
+    let currentPage = 1;
+    let totalItems = 100; // Adjust this to the actual number of items
+
+    let products = [];
+
+function fetchProducts() {
+    fetch('/all_products')
+        .then(response => response.json())
+        .then(data => {
+            products = data;
+            filteredProducts = [...products];
+            renderTable();
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+    let filteredProducts = [...products];
+    let sortColumn = null;
+    let sortDirection = 'asc';
+
+    function renderTable() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, filteredProducts.length);
+
+        productTableBody.innerHTML = '';
+        for (let i = startIndex; i < endIndex; i++) {
+        const product = filteredProducts[i];
+        const row = `
+          <tr class="border-b border-zinc-700 hover:bg-zinc-900 cursor-pointer">
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.Id}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.Product}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.Category}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.Serial_no}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.details}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.Owner}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.timestamp}</td>
+          </tr>
+        `;
+        productTableBody.innerHTML += row;
+    }
+
+        startIndexSpan.textContent = startIndex + 1;
+        endIndexSpan.textContent = endIndex;
+        totalItemsSpan.textContent = filteredProducts.length;
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = endIndex >= filteredProducts.length;
+    }
+
+    function sortProducts(column) {
+        if (column === sortColumn) {
+            sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortColumn = column;
+            sortDirection = 'asc';
+        }
+
+        filteredProducts.sort((a, b) => {
+            if (a[column] < b[column]) return sortDirection === 'asc' ? -1 : 1;
+            if (a[column] > b[column]) return sortDirection === 'asc' ? 1 : -1;
+            return 0;
+        });
+
+        currentPage = 1;
+        renderTable();
+    }
+
+    function searchProducts(query) {
+    query = query.toLowerCase();
+    filteredProducts = products.filter(product =>
+        product.Product.toLowerCase().includes(query) ||
+        product.barcode.toLowerCase().includes(query) ||
+        product.Owner.toLowerCase().includes(query)
+    );
+    currentPage = 1;
+    renderTable();
+}
+
+
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < Math.ceil(filteredProducts.length / itemsPerPage)) {
+            currentPage++;
+            renderTable();
+        }
+    });
+
+    searchButton.addEventListener('click', () => {
+        searchProducts(searchInput.value);
+    });
+
+    searchInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            searchProducts(e.target.value);
+        }
+    });
+
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+            sortProducts(th.dataset.sort);
+        });
+    });
+
+    renderTable();
+
+
+    // register product
+
+    document.getElementById('productFormId').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    let formData = new FormData(this);
+
+    fetch('/register_product', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        // You can add more actions here, like clearing the form or updating the UI
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while registering the product.');
+    });
+});
+  </script>
+{% endblock %}

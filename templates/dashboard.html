@@ -1,0 +1,123 @@
+
+   
+   {% extends "base.html" %}
+   {% block content %}
+
+   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+    <div class="bg-black px-2 py-5 rounded-md shadow-sm shadow-zinc-900 border-l-4 border-yellow-600">
+        <div class="text-center relative">
+            <h2 class="text-xl text-white font-semibold mb-2"> <i class="fa-solid fa-cubes-stacked"></i> Total Products</h2>
+            <p class="text-3xl font-bold text-yellow-600">{{ total_products }}</p>
+            <i class="fa-solid fa-cubes-stacked text-zinc-950 text-6xl absolute bottom-0 right-0"></i>
+        </div>
+    </div>
+
+    <div class="bg-black px-2 py-5 rounded-md shadow-sm shadow-zinc-900 border-l-4 border-yellow-600">
+        <div class="text-center relative">
+            <h2 class="text-xl text-white font-semibold mb-2"> <i class="fa-solid fa-user-graduate"></i>  Registered students</h2>
+            <p class="text-3xl font-bold text-yellow-600">{{ total_students }}</p>
+            <i class="fa-solid fa-user-graduate text-zinc-950 text-6xl absolute bottom-0 right-0"></i>
+        </div>
+    </div>
+
+    <div class="bg-black px-2 py-5 rounded-md shadow-sm shadow-zinc-900 border-l-4 border-yellow-600">
+        <div class="text-center relative">
+            <h2 class="text-xl text-white font-semibold mb-2"> <i class="fa fa-users"></i> Total Users</h2>
+            <p class="text-3xl font-bold text-yellow-600">{{ total_users }}</p>
+            <i class="fa fa-users text-zinc-950 text-6xl absolute bottom-0 right-0"></i>
+        </div>
+    </div>
+</div>
+
+        
+
+        <div class="flex flex-col md:flex-row space-x-4">
+            <div class="w-full md:w-4/5 p-5 mb-4 md:mb-0 bg-black rounded-md">
+                <h2 class="text-xl text-zinc-600 font-semibold mb-2">Recent Activities</h2>
+
+                <div class="overflow-x-auto">
+                  {% if recent_movements %}
+                <table class="w-full text-white">
+                    <thead>
+                        <tr>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">#ID</th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Product Name <i class="fa-solid fa-sort"></i> </th>
+                           
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Owner</th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Status</th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for movement in recent_movements %}
+                      <tr class="border-b border-zinc-700 hover:bg-zinc-900 cursor-pointer">
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Id }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Product }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Owner }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.status }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Timestamp }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+  
+                </table>
+                {% else %}
+        <p class="text-zinc-500 text-lg py-2">No recent movements to display.</p>
+    {% endif %}
+            </div>
+            </div>
+                      <div class="w-full md:w-1/5 p-3 bg-black rounded">
+                          <h2 class="text-xl text-zinc-400 text-center font-semibold mb-2">Latest Logins</h2>
+
+                          <div class="flex items-center mb-2">
+                              <i class="fa-regular fa-user-circle text-zinc-500 text-2xl mr-3"></i>
+                              <div>
+                                  <p class="text-zinc-300">John Doe</p>
+                                  <p class="text-zinc-500 text-sm">2023-05-03 10:30 AM</p>
+                              </div>
+                          </div>
+
+                          <div class="flex items-center mb-2">
+                              <i class="fa-regular fa-user-circle text-zinc-500 text-2xl mr-3"></i>
+                              <div>
+                                  <p class="text-zinc-300">Jane Smith</p>
+                                  <p class="text-zinc-500 text-sm">2023-05-03 09:45 AM</p>
+                              </div>
+                          </div>
+
+                          <div class="flex items-center">
+                              <i class="fa-regular fa-user-circle text-zinc-500 text-2xl mr-3"></i>
+                              <div>
+                                  <p class="text-zinc-300">Mike Johnson</p>
+                                  <p class="text-zinc-500 text-sm">2023-05-03 08:15 AM</p>
+                              </div>
+                          </div>
+
+                      </div>
+            
+        </div>
+        
+
+      </div>
+    </div>
+
+    <script>
+      const menuBtn = document.getElementById('menu-btn');
+      const sidebar = document.getElementById('sidebar');
+
+      menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-open');
+      });
+
+      // Close sidebar when clicking outside of it
+      document.addEventListener('click', (event) => {
+        const isClickInsideMenu = menuBtn.contains(event.target);
+        const isClickInsideSidebar = sidebar.contains(event.target);
+
+        if (!isClickInsideMenu && !isClickInsideSidebar && sidebar.classList.contains('sidebar-open')) {
+          sidebar.classList.remove('sidebar-open');
+        }
+      });
+    </script>
+
+{% endblock %}
