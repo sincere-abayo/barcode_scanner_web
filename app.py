@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from pyzbar.pyzbar import decode
-from werkzeug.security import check_password_hash
 import sqlite3
 import sys
-from PIL import Image
 import io
 import sqlite3
 from datetime import datetime
