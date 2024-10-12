@@ -98,6 +98,11 @@ def users():
 def student():
     return render_template('student.html')
 
+# profile file
+@app.route('/profile', methods=['GET'])
+def profile():
+    return render_template('profile.html')
+
 @app.route('/product', methods=['GET'])
 def product():
     return render_template('product.html')
