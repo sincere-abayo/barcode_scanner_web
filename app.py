@@ -145,6 +145,11 @@ def get_all_students():
     # return jsonify([dict(zip([column[0] for column in c.description], row)) for row in students])
 
 
+# profile file
+@app.route('/profile', methods=['GET'])
+def profile():
+    return render_template('profile.html')
+
 @app.route('/product', methods=['GET'])
 def product():
     return render_template('product.html')
