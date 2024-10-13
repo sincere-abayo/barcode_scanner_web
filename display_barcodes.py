@@ -1,7 +1,7 @@
 import sqlite3
 
 def display_barcodes():
-    conn = sqlite3.connect('barcodes1.db')
+    conn = sqlite3.connect('barcodes.db')
     c = conn.cursor()
     
     c.execute("SELECT Id, Product, Owner, Category, barcode, Tag, timestamp FROM products ORDER BY timestamp DESC")

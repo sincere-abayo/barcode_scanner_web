@@ -1,7 +1,7 @@
 import sqlite3
 
 def setup_database():
-    conn = sqlite3.connect('barcodes1.db')
+    conn = sqlite3.connect('barcodes.db')
     c = conn.cursor()
 
     c.execute('''CREATE TABLE IF NOT EXISTS products
@@ -26,6 +26,7 @@ def setup_database():
                   gender TEXT,
                   Department TEXT,
                   Program TEXT,
+                  Year TEXT,
                   Card TEXT)''')
 
     # Insert sample data into the user table

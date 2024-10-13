@@ -1,23 +1,42 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from pyzbar.pyzbar import decode
 import sqlite3
-import sys
+import time
 import io
 import sqlite3
 from datetime import datetime
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
+
+
 
 app = Flask(__name__)
 app.secret_key = 'abcdefghigk'  # Set a secret key for session management
 
 
 def get_db_connection():
-    conn = sqlite3.connect('barcodes1.db')
+    conn = sqlite3.connect('barcodes.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-# @app.route('/', methods=['GET'])
-# def index():
-#     return render_template('index.html')
+
+
+@app.route('/get_rfid_code')
+def get_rfid_code():
+    reader = SimpleMFRC522()
+    
+    try:
+        for _ in range(50):  # Try for about 5 seconds
+            id, text = reader.read_no_block()
+            if id:
+                return jsonify({"rfid_code": str(id)})
+            time.sleep(0.1)
+        
+        return jsonify({"error": "No RFID tag detected"}), 404
+    
+    finally:
+        GPIO.cleanup()
+
 
 
 @app.route('/dashboard')
@@ -79,7 +98,28 @@ def register_product():
 
     return jsonify({'message': 'Product registered successfully'})
 
+@app.route('/register_student', methods=['POST'])
+def register_student():
+    conn = sqlite3.connect('barcodes.db')
+    c = conn.cursor()
 
+    data = request.form
+
+    try:
+        c.execute('''INSERT INTO students 
+                     (Name, Reg_no, gender, Department, Program, Year, Card) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?)''',
+                  (data['studentName'], data['regNo'], data['gender'],
+                   data['department'], data['program'], data['yearOfStudy'],
+                   data['rfid']))
+        conn.commit()
+        return jsonify({"message": "Student registered successfully"}), 200
+    except sqlite3.IntegrityError:
+        return jsonify({"error": "Registration number already exists"}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
 
 # report file
 @app.route('/report', methods=['GET'])
@@ -93,8 +133,17 @@ def users():
 
 # student file
 @app.route('/student', methods=['GET'])
-def student():
-    return render_template('student.html')
+def get_all_students():
+    conn = sqlite3.connect('barcodes.db')
+    c = conn.cursor()
+    c.execute("SELECT Id, Name, Reg_no, Department, Program, gender as Gender, Year FROM students")
+    students = [dict(zip([column[0] for column in c.description], row)) for row in c.fetchall()]
+    conn.close()
+    return render_template('student.html', students=students)
+
+    
+    # return jsonify([dict(zip([column[0] for column in c.description], row)) for row in students])
+
 
 @app.route('/product', methods=['GET'])
 def product():
@@ -111,40 +160,6 @@ def get_all_products():
     return jsonify([dict(row) for row in products])
 
 
-@app.route('/scan', methods=['POST'])
-def scan():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'})
-    
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'})
-    
-    if file:
-        image_data = file.read()
-        image = Image.open(io.BytesIO(image_data))
-        
-        barcodes = decode(image)
-        
-        if barcodes:
-            barcode_data = barcodes[0].data.decode('utf-8')
-            conn = get_db_connection()
-            c = conn.cursor()
-            c.execute("SELECT * FROM scans WHERE barcode = ?", (barcode_data,))
-            result = c.fetchone()
-            conn.close()
-
-            if result:
-                return jsonify({
-                    'barcode': result['barcode'],
-                    'name': result['name'],
-                    'details': result['details'],
-                    'timestamp': result['timestamp']
-                })
-            else:
-                return jsonify({'barcode': barcode_data, 'message': 'Barcode not registered'})
-        else:
-            return jsonify({'error': 'No barcode found'})
 
 @app.route('/register', methods=['POST'])
 def register():
