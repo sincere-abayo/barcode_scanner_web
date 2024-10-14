@@ -1,0 +1,15 @@
+  GNU nano 7.2                                                                                                    verify.service                                                                                                              
+[Unit]
+Description=Run verify.py at startup
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c 'source /home/manudi/y3 project/barcode_scanner_web/myenv/bin/activate && python3 /home/manudi/y3 project/barcode_scanner_web/scan_and_check.py'
+WorkingDirectory=/home/manudi/scan_and_check.py
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=manudi
+
+[Install]
+WantedBy=multi-user.target

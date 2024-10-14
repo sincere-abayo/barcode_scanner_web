@@ -13,19 +13,22 @@
             <input type="text" id="searchInput" placeholder="Search students..." class="w-64 p-2 bg-zinc-800 text-white rounded-l">
             <button id="searchButton" class="bg-yellow-600 text-white px-3 py-2 rounded-r"><i class="fa fa-search"></i></button>
         </div>
+       
+        
         <div class="overflow-x-auto">
 
        <table class="w-full text-white">
               <thead>
                   <tr>
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
-                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Names <i class="fa-solid fa-sort"></i></th>
+                        <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Names <i class="fa-solid fa-sort"></i></th>
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">Reg No <i class="fa-solid fa-sort"></i></th>
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial"> Department <i class="fa-solid fa-sort"></i></th>
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="details"> Program <i class="fa-solid fa-sort"></i></th>
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Gender <i class="fa-solid fa-sort"></i></th>
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Year of Study <i class="fa-solid fa-sort"></i></th>
-                  </tr>
+                      <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" >Option <i class="fa-solid fa-sort"></i></th>
+                    </tr>
               </thead>
               <tbody id="tableRow">
                 {% for student in students %}
@@ -37,9 +40,14 @@
                     <td class="border-b border-zinc-700 px-4 py-3">{{ student.Program }}</td>
                     <td class="border-b border-zinc-700 px-4 py-3">{{ student.Gender }}</td>
                     <td class="border-b border-zinc-700 px-4 py-3">{{ student.Year }}</td>
+                    <td class="border-b border-zinc-700 px-4 py-3 space-x-5" >
+                        <button class="delete-btn" data-student-id="{{ student.Id }}"><i class="fa fa-trash-can text-red-500 text-2xl" title="Delete"></i></button> 
+                        <button onclick="openEditModal()"><i class="fa fa-user-pen text-blue-700 text-2xl" title="Edit"></i></button>
+                    </td>
                 </tr>
                 {% endfor %}
-                 
+            </tbody>
+            
               </tbody>
           </table>
    
@@ -147,11 +155,57 @@
            
             </div>
           </div>
-            
+
+  <!-- Edit Modal -->
+<div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-black">
+      <div class="mt-3 text-center">
+        <h3 class="text-lg leading-6 font-medium text-white">Edit Student Details</h3>
+        <form id="editForm" class="mt-4">
+          <div class="mb-4">
+            <input id="editName" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600" type="text" placeholder="Name">
+          </div>
+          <div class="mb-4">
+            <input id="editRegNo" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600" type="text" placeholder="Reg No">
+          </div>
+          <div class="mb-4">
+            <select id="editDepartment" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600">
+              <option value="">Select Department</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Business">Business</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <select id="editProgram" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600">
+              <option value="">Select Program</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <select id="editGender" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="items-center px-4 py-3">
+            <button type="submit" id="saveButton" class="px-4 py-2 bg-yellow-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+              Save
+            </button>
+            <button type="button" id="closeButton" class="mt-3 px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
 
           <script src="static/Js/modal.js"></script>
           <script src="static/Js/search.js"></script>
-          
+          Delete
           <script>
               document.addEventListener('DOMContentLoaded', function() {
                   const departmentSelect = document.getElementById('department');
@@ -223,6 +277,73 @@ document.getElementById('studentFormId').addEventListener('submit', function(e) 
     });
 });
 
+
+
+
+const editModal = document.getElementById('editModal');
+      const editInput = document.getElementById('editInput');
+      const saveButton = document.getElementById('saveButton');
+      const closeButton = document.getElementById('closeButton');
+
+    //   function openEditModal() {
+    //     editModal.classList.remove('hidden');
+    //   }
+
+      function closeEditModal() {
+        editModal.classList.add('hidden');
+      }
+
+
+function openEditModal() {
+  editModal.classList.remove('hidden');
+}
+
+
+      saveButton.addEventListener('click', function() {
+        // Here you can add logic to save the edited content
+        console.log('Saving:', editInput.value);
+        closeEditModal();
+      });
+
+      closeButton.addEventListener('click', closeEditModal);
+
+
+
+      const tableBody = document.getElementById('tableRow');
+
+tableBody.addEventListener('click', function(e) {
+    if (e.target.closest('.delete-btn')) {
+        const deleteBtn = e.target.closest('.delete-btn');
+        const studentId = deleteBtn.getAttribute('data-student-id');
+        
+        if (confirm('Are you sure you want to delete this student?')) {
+            deleteStudent(studentId);
+        }
+    }
+});
+
+function deleteStudent(studentId) {
+    fetch(`/delete_student/${studentId}`, {
+        method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data) {
+            alert('Student deleted successfully');
+            // Remove the row from the table
+            const row = document.querySelector(`[data-student-id="${studentId}"]`).closest('tr');
+            row.remove();
+        } else {
+            alert('Failed to delete student');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while deleting the student');
+    })
+
+}
+
           </script>
 
-      {% endblock %}
+      {% endblock %}r

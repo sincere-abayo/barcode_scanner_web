@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="bg-black p-5 mt-1 rounded">
+  <div class="flex justify-between mb-8">
+    <button id="registerDepartmentBtn" class="bg-yellow-600 text-white px-4 py-2 rounded">Register Department</button>
+    <button id="registerProgramBtn" class="bg-yellow-600 text-white px-4 py-2 rounded">Register Program</button>
+  </div>
+
+  <div id="departmentSection" class="mb-8">
+    <h2 class="text-white text-2xl mb-4">Departments</h2>
+    <table class="w-full text-white">
+      <thead>
+        <tr>
+          <th class="border-b border-zinc-700 px-4 py-2">Department Name</th>
+          <th class="border-b border-zinc-700 px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="departmentTableBody">
+        <!-- Department rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <div id="programSection">
+    <h2 class="text-white text-2xl mb-4">Programs</h2>
+    <table class="w-full text-white">
+      <thead>
+        <tr>
+          <th class="border-b border-zinc-700 px-4 py-2">Program Name</th>
+          <th class="border-b border-zinc-700 px-4 py-2">Department</th>
+          <th class="border-b border-zinc-700 px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="programTableBody">
+        <!-- Program rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

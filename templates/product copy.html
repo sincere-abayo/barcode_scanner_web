@@ -16,9 +16,11 @@
                         <tr>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Product Name <i class="fa-solid fa-sort"></i></th>
-                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="barcode">Barcode <i class="fa-solid fa-sort"></i></th>
-                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Registered <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">category <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial">Serial Number <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="details">Details <i class="fa-solid fa-sort"></i></th>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Owner <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Registered <i class="fa-solid fa-sort"></i></th>
                         </tr>
                     </thead>
                     <tbody id="productTableBody">
@@ -38,7 +40,7 @@
                 </div>
             </div>
         </div>
-    </div>
+   
 
         <!-- Modal Structure -->
         <div id="productModal" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex items-center justify-center">
@@ -91,16 +93,19 @@
                       <input id="barcode" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="barcode" placeholder="Barcode" required>
                   </div>
               </div>
-
               <div class="my-2">
-                  <label for="rfid" class="block mb-3 text-xl text-white font-medium">RFID</label>
-                  <div class="relative">
-                      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                          <i class="fas fa-microchip text-gray-200"></i>
-                      </span>
-                      <input id="rfid" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="rfid" placeholder="RFID" required>
-                  </div>
-              </div>
+                <label for="rfid" class="block mb-3 text-xl text-white font-medium">RFID</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="fas fa-microchip text-gray-200"></i>
+                    </span>
+                    <input id="rfid" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-10 border-yellow-600" type="text" name="rfid" placeholder="RFID" required>
+                    <button id="getCardNumber" class="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <i class="fas fa-plus text-yellow-600 cursor-pointer"></i>
+                    </button>
+                </div>
+            </div>
+            
 
               <div class="my-2">
                   <label for="description" class="block mb-3 text-xl text-white font-medium">Description</label>
@@ -136,6 +141,55 @@
         </div>
 
 
+
+  <!-- Edit Modal -->
+<div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-black">
+      <div class="mt-3 text-center">
+        <h3 class="text-lg leading-6 font-medium text-white">Edit Student Details</h3>
+        <form id="editForm" class="mt-4">
+          <div class="mb-4">
+            <input id="editName" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600" type="text" placeholder="Name">
+          </div>
+          <div class="mb-4">
+            <input id="editRegNo" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600" type="text" placeholder="Reg No">
+          </div>
+          <div class="mb-4">
+            <select id="editDepartment" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600">
+              <option value="">Select Department</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Business">Business</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <select id="editProgram" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600">
+              <option value="">Select Program</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <select id="editGender" class="border rounded-md focus:outline-none w-full py-2 px-3 bg-black text-white border-yellow-600">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="items-center px-4 py-3">
+            <button type="submit" id="saveButtons" class="px-4 py-2 bg-yellow-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+              Save
+            </button>
+            <button type="button" id="closeButton" class="mt-3 px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+
   <script src="static/Js/modal.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', fetchProducts);
@@ -143,8 +197,10 @@
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
 
-    menuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('sidebar-open');
+    menuBtn.addEventListener('click', () => {   <td class="border-b border-zinc-700 px-4 py-3 space-x-5" >
+                      <button>b  </button>  <i class="fa fa-trash-can text-red-500 text-2xl" title="Delete"></i>
+                       <button>b  </button> <i class="fa fa-user-pen text-blue-700 text-2xl" title="Edit"></i>
+                    </td>
     });
 
     // Close sidebar when clicking outside of it
@@ -200,9 +256,18 @@ function fetchProducts() {
           <tr class="border-b border-zinc-700 hover:bg-zinc-900 cursor-pointer">
             <td class="px-4 text-zinc-500 text-lg py-2">${product.Id}</td>
             <td class="px-4 text-zinc-500 text-lg py-2">${product.Product}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.barcode}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.timestamp}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.Category}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.Serial_no}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.details}</td>
             <td class="px-4 text-zinc-500 text-lg py-2">${product.Owner}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">${product.timestamp}</td>
+            <td class="px-4 text-zinc-500 text-lg py-2">
+                   <td class="border-b border-zinc-700 px-4 py-3 space-x-5" >
+                      <button> </button>  <i class="fa fa-trash-can text-red-500 text-2xl" title="Delete"></i>
+                        <button onclick="openEditModal()"> <i class="fa fa-user-pen text-blue-700 text-2xl" title="Edit"></i> </button>
+                    </td>   
+                </td>
+
           </tr>
         `;
         productTableBody.innerHTML += row;
@@ -281,7 +346,7 @@ function fetchProducts() {
 
     // register product
 
-    document.getElementById('Id').addEventListener('submit', function(e) {
+    document.getElementById('productFormId').addEventListener('submit', function(e) {
     e.preventDefault();
     
     let formData = new FormData(this);
@@ -293,6 +358,8 @@ function fetchProducts() {
     .then(response => response.json())
     .then(data => {
         alert(data.message);
+        location.reload();
+
         // You can add more actions here, like clearing the form or updating the UI
     })
     .catch(error => {
@@ -300,5 +367,62 @@ function fetchProducts() {
         alert('An error occurred while registering the product.');
     });
 });
+
+saveButton.addEventListener('click', function() {
+    // Here you can add logic to save the edited content
+    console.log('Saving:', editInput.value);
+    closeEditModal();
+});
+
+
+document.getElementById('getCardNumber').addEventListener('click', function() {
+    fetch('/get_rfid_code')
+        .then(response => response.json())
+        .then(data => {
+            if (data.rfid_code) {
+                document.getElementById('rfid').value = data.rfid_code;
+            } else {
+                alert('Failed to read RFID code. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while reading the RFID code.');
+        });
+});
+
+
+
+
+const editModal = document.getElementById('editModal');
+      const editInput = document.getElementById('editInput');
+      const saveButtons = document.getElementById('saveButton');
+      const closeButton = document.getElementById('closeButton');
+
+    //   function openEditModal() {
+    //     editModal.classList.remove('hidden');
+    //   }
+
+      function closeEditModal() {
+        editModal.classList.add('hidden');
+      }
+
+
+function openEditModal() {
+  editModal.classList.remove('hidden');
+}
+
+
+      saveButton.addEventListener('click', function() {
+        // Here you can add logic to save the edited content
+        console.log('Saving:', editInput.value);
+        closeEditModal();
+      });
+
+      closeButton.addEventListener('click', closeEditModal);
+
+
+
+
   </script>
 {% endblock %}

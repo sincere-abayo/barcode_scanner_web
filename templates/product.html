@@ -16,11 +16,9 @@
                         <tr>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Product Name <i class="fa-solid fa-sort"></i></th>
-                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">category <i class="fa-solid fa-sort"></i></th>
-                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial">Serial Number <i class="fa-solid fa-sort"></i></th>
-                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="details">Details <i class="fa-solid fa-sort"></i></th>
-                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Owner <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="barcode">Barcode <i class="fa-solid fa-sort"></i></th>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Registered <i class="fa-solid fa-sort"></i></th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Owner <i class="fa-solid fa-sort"></i></th>
                         </tr>
                     </thead>
                     <tbody id="productTableBody">
@@ -40,9 +38,9 @@
                 </div>
             </div>
         </div>
-   
+    </div>
 
-        <!-- Modal Structure -->
+        <!-- Register product Modal Structure -->
         <div id="productModal" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div class="bg-black p-8 rounded-lg md:w-1/2 w-full m-5">
             <h2 class="text-2xl mb-4">Add Product</h2>
@@ -93,19 +91,16 @@
                       <input id="barcode" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="barcode" placeholder="Barcode" required>
                   </div>
               </div>
+
               <div class="my-2">
-                <label for="rfid" class="block mb-3 text-xl text-white font-medium">RFID</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <i class="fas fa-microchip text-gray-200"></i>
-                    </span>
-                    <input id="rfid" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-10 border-yellow-600" type="text" name="rfid" placeholder="RFID" required>
-                    <button id="getCardNumber" class="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <i class="fas fa-plus text-yellow-600 cursor-pointer"></i>
-                    </button>
-                </div>
-            </div>
-            
+                  <label for="rfid" class="block mb-3 text-xl text-white font-medium">RFID</label>
+                  <div class="relative">
+                      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                          <i class="fas fa-microchip text-gray-200"></i>
+                      </span>
+                      <input id="rfid" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="rfid" placeholder="RFID" required>
+                  </div>
+              </div>
 
               <div class="my-2">
                   <label for="description" class="block mb-3 text-xl text-white font-medium">Description</label>
@@ -126,9 +121,7 @@
                     <input id="serialNumber" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="serialNumber" placeholder="Serial Number" required>
                 </div>
             </div>
-
-
-              <!-- Add other form fields as needed -->
+v
 
               <div class="col-span-2 flex flex-col sm:flex-row justify-between mt-6">
                 <button type="button" id="closeModalBtn" class="bg-zinc-600 text-white px-10 py-2 rounded mb-2 sm:mb-0">Cancel</button>
@@ -140,6 +133,98 @@
           </div>
         </div>
 
+
+
+        <!-- edit product modal -->
+      <!-- edit product modal -->
+<div id="editProductModal" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex items-center justify-center">
+  <div class="bg-black p-8 rounded-lg md:w-1/2 w-full m-5">
+    <h2 class="text-2xl mb-4">Edit Product</h2>
+    <form id="editProductForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="my-2">
+        <label for="editProductName" class="block mb-3 text-xl text-white font-medium">Product Name</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-box text-gray-200"></i>
+          </span>
+          <input id="editProductName" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="productName" placeholder="Product Name" required>
+        </div>
+      </div>
+
+      <div class="my-2">
+        <label for="editProductType" class="block mb-3 text-xl text-white font-medium">Categories</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-tags text-gray-200"></i>
+          </span>
+          <select id="editProductType" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="productType" required>
+            <option value="" disabled selected>Select a category</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Electronic Device">Electronic Device</option>
+            <option value="Spare Part">Spare Part</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="my-2">
+        <label for="editOwner" class="block mb-3 text-xl text-white font-medium">Owner</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-user text-gray-200"></i>
+          </span>
+          <input id="editOwner" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="owner" placeholder="Owner" required>
+        </div>
+      </div>
+
+      <div class="my-2">
+        <label for="editBarcode" class="block mb-3 text-xl text-white font-medium">Barcode</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-barcode text-gray-200"></i>
+          </span>
+          <input id="editBarcode" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="barcode" placeholder="Barcode" required>
+        </div>
+      </div>
+
+      <div class="my-2">
+        <label for="editRfid" class="block mb-3 text-xl text-white font-medium">RFID</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-microchip text-gray-200"></i>
+          </span>
+          <input id="editRfid" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="rfid" placeholder="RFID" required>
+        </div>
+      </div >
+
+      <div class="my-2">
+        <label for="editDescription" class="block mb-3 text-xl text-white font-medium">Description</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-file-alt text-gray-200"></i>
+          </span>
+          <textarea id="editDescription" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" name="description" placeholder="Description" required></textarea>
+        </div>
+      </div>
+
+      <div class="my-2">
+        <label for="editSerialNumber" class="block mb-3 text-xl text-white font-medium">Serial Number</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-microchip text-gray-200"></i>
+          </span>
+          <input id="editSerialNumber" class="border rounded-md focus:outline-none w-full py-2 pl-10 bg-black text-white pr-5 border-yellow-600" type="text" name="serialNumber" placeholder="Serial Number" required>
+        </div>
+      </div>
+
+      <div class="col-span-2 flex flex-col sm:flex-row justify-between mt-6">
+        <button type="button" id="closeEditModalBtn" class="bg-zinc-600 text-white px-10 py-2 rounded mb-2 sm:mb-0">Cancel</button>
+        <button type="submit" class="bg-yellow-600 text-white px-10 py-2 rounded">Update Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+        
 
   <script src="static/Js/modal.js"></script>
   <script>
@@ -202,16 +287,20 @@ function fetchProducts() {
         for (let i = startIndex; i < endIndex; i++) {
         const product = filteredProducts[i];
         const row = `
-          <tr class="border-b border-zinc-700 hover:bg-zinc-900 cursor-pointer">
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.Id}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.Product}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.Category}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.Serial_no}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.details}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.Owner}</td>
-            <td class="px-4 text-zinc-500 text-lg py-2">${product.timestamp}</td>
-          </tr>
-        `;
+  <tr class="border-b border-zinc-700 hover:bg-zinc-900 cursor-pointer">
+    <td class="px-4 text-zinc-500 text-lg py-2">${product.Id}</td>
+    <td class="px-4 text-zinc-500 text-lg py-2">${product.Product}</td>
+    <td class="px-4 text-zinc-500 text-lg py-2">${product.barcode}</td>
+    <td class="px-4 text-zinc-500 text-lg py-2">${product.timestamp}</td>
+    <td class="px-4 text-zinc-500 text-lg py-2">${product.Owner}</td>
+    <td class="px-4 text-zinc-500 text-lg py-2">
+   <button class="edit-btn bg-blue-600 text-white px-2 py-1 rounded mr-2" data-id="${product.Id}">Edit</button>
+
+      <button class="delete-btn bg-red-600 text-white px-2 py-1 rounded" data-id="${product.Id}">Delete</button>
+    </td>
+  </tr>
+`;
+
         productTableBody.innerHTML += row;
     }
 
@@ -300,8 +389,6 @@ function fetchProducts() {
     .then(response => response.json())
     .then(data => {
         alert(data.message);
-        location.reload()
-
         // You can add more actions here, like clearing the form or updating the UI
     })
     .catch(error => {
@@ -311,20 +398,143 @@ function fetchProducts() {
 });
 
 
-document.getElementById('getCardNumber').addEventListener('click', function() {
-    fetch('/get_rfid_code')
-        .then(response => response.json())
-        .then(data => {
-            if (data.rfid_code) {
-                document.getElementById('rfid').value = data.rfid_code;
-            } else {
-                alert('Failed to read RFID code. Please try again.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while reading the RFID code.');
-        });
+// Edit Product
+function editProduct(productId) {
+  const product = products.find(p => p.Id === productId);
+  if (product) {
+    // Populate the edit form with product data
+    document.getElementById('editProductForm').reset();
+    document.getElementById('editProductForm').dataset.productId = productId;
+    // Set values for each form field
+    document.getElementById('editProductName').value = product.Product;
+    document.getElementById('editProductType').value = product.Type;
+    document.getElementById('editOwner').value = product.Owner;
+    document.getElementById('editBarcode').value = product.barcode;
+    document.getElementById('editRfid').value = product.rfid;
+    document.getElementById('editDescription').value = product.description;
+    document.getElementById('editSerialNumber').value = product.serialNumber;
+
+    // Show the edit modal
+    document.getElementById('editProductModal').classList.remove('hidden');
+  }
+}
+
+// Delete Product
+function deleteProduct(productId) {
+  if (confirm('Are you sure you want to delete this product?')) {
+    fetch(`/delete_product/${productId}`, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        fetchProducts(); // Refresh the product list
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while deleting the product.');
+      });
+  }
+}
+
+// Event listeners for edit and delete buttons
+productTableBody.addEventListener('click', (e) => {
+  if (e.target.classList.contains('edit-btn')) {
+    const productId = e.target.dataset.id;
+    editProduct(productId);
+  }
+});
+
+
+// Handle edit form submission
+document.getElementById('editProductForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const productId = this.dataset.productId;
+  const formData = new FormData(this);
+
+  fetch(`/update_product/${productId}`, {
+    method: 'PUT',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert(data.message);
+    document.getElementById('editProductModal').classList.add('hidden');
+    fetchProducts(); // Refresh the product list
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred while updating the product.');
+  });
+});
+
+// Close edit modal
+document.getElementById('closeEditModalBtn').addEventListener('click', () => {
+  document.getElementById('editProductModal').classList.add('hidden');
+});
+// Edit Product
+function editProduct(productId) {
+  const product = products.find(p => p.Id === productId);
+  if (product) {
+    // Populate the edit form with product data
+    document.getElementById('editProductForm').reset();
+    document.getElementById('editProductForm').dataset.productId = productId;
+    // Set values for each form field
+    // ...
+
+    // Show the edit modal
+    document.getElementById('editProductModal').classList.remove('hidden');
+  }
+}
+
+// Delete Product
+function deleteProduct(productId) {
+  if (confirm('Are you sure you want to delete this product?')) {
+    fetch(`/delete_product/${productId}`, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        fetchProducts(); // Refresh the product list
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while deleting the product.');
+      });
+  }
+}
+
+// Event listeners for edit and delete buttons
+productTableBody.addEventListener('click', (e) => {
+  if (e.target.classList.contains('edit-btn')) {
+    editProduct(e.target.dataset.id);
+  } else if (e.target.classList.contains('delete-btn')) {
+    deleteProduct(e.target.dataset.id);
+  }
+});
+
+// Handle edit form submission
+document.getElementById('editProductForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const productId = this.dataset.productId;
+  const formData = new FormData(this);
+
+  fetch(`/update_product/${productId}`, {
+    method: 'PUT',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert(data.message);
+    document.getElementById('editProductModal').classList.add('hidden');
+    fetchProducts(); // Refresh the product list
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred while updating the product.');
+  });
+});
+
+// Close edit modal
+document.getElementById('closeEditModalBtn').addEventListener('click', () => {
+  document.getElementById('editProductModal').classList.add('hidden');
 });
 
   </script>

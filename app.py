@@ -150,6 +150,16 @@ def get_all_students():
 def profile():
     return render_template('profile.html')
 
+#forget
+@app.route('/forget', methods=['GET'])
+def forget():
+    return render_template('forget.html')
+
+#department
+@app.route('/department', methods=['GET'])
+def department():
+    return render_template('department.html')
+
 @app.route('/product', methods=['GET'])
 def product():
     return render_template('product.html')
@@ -164,6 +174,27 @@ def get_all_products():
 
     return jsonify([dict(row) for row in products])
 
+# delete product based on product id
+@app.route('/delete_product/<int:product_id>', methods=['DELETE'])
+def delete_product(product_id):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("DELETE FROM products WHERE Id = ?", (product_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({'message': 'Product deleted successfully'})
+
+
+
+# delete product based on product id
+@app.route('/delete_student/<int:student_id>', methods=['DELETE'])
+def delete_student(student_id):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("DELETE FROM students WHERE Id = ?", (student_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({'message': 'Student deleted successfully'})
 
 
 @app.route('/register', methods=['POST'])
