@@ -42,19 +42,23 @@
                         <tr>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">#ID</th>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Product Name <i class="fa-solid fa-sort"></i> </th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Category</th>
                            
-                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Owner</th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Detail</th>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Status</th>
+                            <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Owner</th>
                             <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3">Time</th>
                         </tr>
                     </thead>
                     <tbody>
                       {% for movement in recent_movements %}
                       <tr class="border-b border-zinc-700 hover:bg-zinc-900 cursor-pointer">
-                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Id }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ loop.index }}</td>
                           <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Product }}</td>
-                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Owner }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Category }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.details }}</td>
                           <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.status }}</td>
+                          <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Owner }}</td>
                           <td class="px-4 text-zinc-500 text-lg py-2">{{ movement.Timestamp }}</td>
                       </tr>
                       {% endfor %}

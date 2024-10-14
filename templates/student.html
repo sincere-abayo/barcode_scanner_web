@@ -29,24 +29,24 @@
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Year of Study <i class="fa-solid fa-sort"></i></th>
                       <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" >Option <i class="fa-solid fa-sort"></i></th>
                     </tr>
-              </thead>
-              <tbody id="tableRow">
-                {% for student in students %}
-                <tr>
-                    <td class="border-b border-zinc-700 px-4 py-3">{{ student.Id }}</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">{{ student.Name }}</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">{{ student.Reg_no }}</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">{{ student.Department }}</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">{{ student.Program }}</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">{{ student.Gender }}</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">{{ student.Year }}</td>
-                    <td class="border-b border-zinc-700 px-4 py-3 space-x-5" >
-                        <button class="delete-btn" data-student-id="{{ student.Id }}"><i class="fa fa-trash-can text-red-500 text-2xl" title="Delete"></i></button> 
-                        <button onclick="openEditModal()"><i class="fa fa-user-pen text-blue-700 text-2xl" title="Edit"></i></button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
+                </thead>
+                <tbody id="tableRow">
+                    {% for student in students %}
+                    <tr>
+                        <td class="border-b border-zinc-700 px-4 py-3">{{ loop.index}}</td>
+                        <td class="border-b border-zinc-700 px-4 py-3">{{ student.Name }}</td>
+                        <td class="border-b border-zinc-700 px-4 py-3">{{ student.Reg_no }}</td>
+                        <td class="border-b border-zinc-700 px-4 py-3">{{ student.Department }}</td>
+                        <td class="border-b border-zinc-700 px-4 py-3">{{ student.Program }}</td>
+                        <td class="border-b border-zinc-700 px-4 py-3">{{ student.Gender }}</td>
+                        <td class="border-b border-zinc-700 px-4 py-3">{{ student.Year }}</td>
+                        <td class="border-b border-zinc-700 px-4 py-3 space-x-5" >
+                            <button class="delete-btn" data-student-id="{{ student.Id }}"><i class="fa fa-trash-can text-red-500 text-2xl" title="Delete"></i></button> 
+                            <button onclick="openEditModal()"><i class="fa fa-user-pen text-blue-700 text-2xl" title="Edit"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             
               </tbody>
           </table>

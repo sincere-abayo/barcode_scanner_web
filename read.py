@@ -44,11 +44,7 @@ try:
     while True:
         id, text = reader.read_no_block()
         if id:
-            # lcd.clear()
-            # lcd.write_string("Tag detected!")
-            # lcd.cursor_pos = (1, 0)
-            # lcd.write_string(f"ID: {id}")
-
+           
             c.execute("SELECT * FROM products WHERE Tag = ?", (id,))
             result = c.fetchone()
             if result:

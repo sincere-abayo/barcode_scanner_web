@@ -60,7 +60,7 @@ def dashboard():
     total_users = cursor.fetchone()[0]
      # Fetch the latest 10 movements
     cursor.execute("""
-        SELECT pm.Id, p.Product, p.Owner, pm.status, pm.Timestamp
+        SELECT pm.Id, p.Product, p.Owner, p.details,p.Category,  pm.status, pm.Timestamp
         FROM product_movement pm
         JOIN products p ON pm.ProductId = p.Id
         ORDER BY pm.Timestamp DESC
@@ -124,6 +124,11 @@ def register_student():
 # report file
 @app.route('/report', methods=['GET'])
 def report():
+    conn = sqlite3.connect('barcodes.db')
+    c = conn.cursor()
+    c.execute("SELECT Id, Name, Reg_no, Department, Program, gender as Gender, Year FROM students")
+    students = [dict(zip([column[0] for column in c.description], row)) for row in c.fetchall()]
+    conn.close()
     return render_template('report.html')
 
 # users file
@@ -139,6 +144,7 @@ def get_all_students():
     c.execute("SELECT Id, Name, Reg_no, Department, Program, gender as Gender, Year FROM students")
     students = [dict(zip([column[0] for column in c.description], row)) for row in c.fetchall()]
     conn.close()
+    
     return render_template('student.html', students=students)
 
     

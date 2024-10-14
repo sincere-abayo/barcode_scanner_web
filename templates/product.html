@@ -286,11 +286,12 @@ function fetchProducts() {
         const endIndex = Math.min(startIndex + itemsPerPage, filteredProducts.length);
 
         productTableBody.innerHTML = '';
+
         for (let i = startIndex; i < endIndex; i++) {
         const product = filteredProducts[i];
         const row = `
   <tr class="border-b border-zinc-700 hover:bg-zinc-900 cursor-pointer">
-    <td class="px-4 text-zinc-500 text-lg py-2">${product.Id}</td>
+    <td class="px-4 text-zinc-500 text-lg py-2">${i+1}</td>
     <td class="px-4 text-zinc-500 text-lg py-2">${product.Product}</td>
     <td class="px-4 text-zinc-500 text-lg py-2">${product.barcode}</td>
     <td class="px-4 text-zinc-500 text-lg py-2">${product.timestamp}</td>
