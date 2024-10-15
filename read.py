@@ -39,7 +39,7 @@ try:
     lcd.clear()
     lcd.write_string("Ready to read")
     lcd.cursor_pos = (1, 0)
-    lcd.write_string("RFID tag...")
+    lcd.write_string("RFID tag or barcode...")
 
     while True:
         id, text = reader.read_no_block()
@@ -83,7 +83,7 @@ try:
             lcd.clear()
             lcd.write_string("Ready to read")
             lcd.cursor_pos = (1, 0)
-            lcd.write_string("RFID tag...")
+            lcd.write_string("RFID tag or barcode...")
 
 except KeyboardInterrupt:
     pass
