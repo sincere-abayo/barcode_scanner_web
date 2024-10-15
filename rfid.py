@@ -9,4 +9,4 @@ try:
         reader.write(text)
         print("Written")
 finally:
-        GPIO.cleanup()
+        GPIO.cleanup() 

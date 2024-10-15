@@ -7,6 +7,10 @@ import sqlite3
 from datetime import datetime
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import random
 
 
 
@@ -121,15 +125,35 @@ def register_student():
     finally:
         conn.close()
 
-# report file
 @app.route('/report', methods=['GET'])
 def report():
     conn = sqlite3.connect('barcodes.db')
-    c = conn.cursor()
-    c.execute("SELECT Id, Name, Reg_no, Department, Program, gender as Gender, Year FROM students")
-    students = [dict(zip([column[0] for column in c.description], row)) for row in c.fetchall()]
+    cursor = conn.cursor()
+
+    # Get entry and exit product counts
+    cursor.execute("""
+        SELECT status, COUNT(*) as count
+        FROM product_movement
+        GROUP BY status
+    """)
+    status_counts = dict(cursor.fetchall())
+
+    entry_count = status_counts.get('entry', 0)
+    exit_count = status_counts.get('exit', 0)
+
+    # Get product details
+    cursor.execute("""
+        SELECT p.Id, p.Product, p.Owner, p.Category, p.Serial_no, p.details, pm.status, pm.Timestamp
+        FROM products p
+        JOIN product_movement pm ON p.Id = pm.ProductId
+        ORDER BY pm.Timestamp DESC
+    """)
+    products = cursor.fetchall()
+
     conn.close()
-    return render_template('report.html')
+
+    return render_template('report.html', entry_count=entry_count, exit_count=exit_count, products=products)
+
 
 # users file
 @app.route('/users', methods=['GET'])
@@ -151,6 +175,7 @@ def get_all_students():
     # return jsonify([dict(zip([column[0] for column in c.description], row)) for row in students])
 
 
+
 # profile file
 @app.route('/profile', methods=['GET'])
 def profile():
@@ -161,8 +186,79 @@ def profile():
 def forget():
     return render_template('forget.html')
 
+# check if email is in db
+@app.route('/check-email/<email>', methods=['GET'])
+def check_email(email):
+    conn = sqlite3.connect('barcodes.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE Email = ?", (email,))
+    if c.fetchone():
+        subject = "Password Reset Request"
+        # create random 6 digit otp
+        otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+        # store otp in session
+        session['otp'] = otp
+        body = f"""
+    <html>
+    <head>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+            }}
+            .container {{
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }}
+            h1 {{
+                color: #0066cc;
+            }}
+            p {{
+                margin-bottom: 15px;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Password Reset OTP Confirmation</h1>
+            <p>Dear User,</p>
+            <p>We have received a request to reset your password for the MentalHealth project. To ensure the security of your account, we have generated a one-time password (OTP) for you.</p>
+            <p>Your OTP is: <strong>{otp}</strong></p>
+            <p>Please enter this OTP on the password reset page to verify your identity and proceed with resetting your password. This OTP will expire in 15 minutes for security reasons.</p>
+            <p>If you did not request a password reset, please ignore this email and ensure your account is secure.</p>
+            
+        </div>
+    </body>
+    </html>
+    """
+        to_email = email 
+        send_email( subject, body, to_email)
+        return jsonify({'message': 'exists', 'email': email})
+    else:
+        return jsonify({'message': 'not'})
+    
+# check if otp is in db
+@app.route('/check-otp/<otp>', methods=['GET'])
+def check_otp(otp):
+    # check if otp is in session
+    if 'otp' in session:
+        if session['otp'] == otp:
+            return jsonify({'otp': 'exists', 'otp': otp})
+        else:
+            return jsonify({'otp': 'invalid', 'session_otp': session['otp']})
+    else:
+        return jsonify({'otp': 'not_found'})
+
+
+
+
 #department
 @app.route('/department', methods=['GET'])
+def department():
+    return render_template('department.html')
 def department():
     return render_template('department.html')
 
@@ -255,5 +351,28 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('index'))
 
+
+def send_email(subject, body, to_email):
+    # Email configuration
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+    sender_email = "mhpcms2024@gmail.com"
+    sender_password = "qrpe sixl znov dxgj"
+
+    # Create the email message
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = to_email
+    message["Subject"] = subject
+
+    # Add body to email as HTML
+    message.attach(MIMEText(body, "html"))
+
+    # Connect to the SMTP server and send the email
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.send_message(message)
+        
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

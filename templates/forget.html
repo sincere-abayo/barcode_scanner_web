@@ -49,16 +49,62 @@
     <script>
       document.getElementById('emailForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        const email = document.getElementById('email').value;
+        // use fetch api to send email to the server
+        // You can use the fetch API to send the email to the server
+        // For example:
+        fetch(`/check-email/${email}`)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            // Handle the response
+            if (data.message === 'exists') { 
+              alert('OTP sent to your email!');
+              this.classList.add('hidden');
+              document.getElementById('otpForm').classList.remove('hidden');
+            } else {
+              alert('email not exist');
+            }
+          })
+          .catch(error => {
+            // Handle errors
+            alert('Error occurred while checking email.');
+            console.error('Error:', error);
+          });
+        
+
+        // Replace the above code with your actual implementation
+        // This is just a
+        // example of how you might use the fetch API to send the email to the server
+        // ou would typically send the email to the server to generate an OTP?
+
         // Here you would typically send the email to the server to generate an OTP
-        alert('OTP sent to your email!');
-        this.classList.add('hidden');
-        document.getElementById('otpForm').classList.remove('hidden');
+       
       });
 
       document.getElementById('otpForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        const otp = document.getElementById('otp').value;
+        fetch(`/check-otp/${otp}`)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            // Handle the response
+            if (data.otp === 'exists') { 
+              alert('OTP verified!');
+
+              this.classList.add('hidden');
+              document.getElementById('otpForm').classList.remove('hidden');
+            } else {
+              alert('otp not exist');
+            }
+          })
+          .catch(error => {
+            // Handle errors
+            alert('Error occurred while checking otp.');
+            console.error('Error:', error);
+          });
         // Here you would typically verify the OTP
-        alert('OTP verified!');
       });
     </script>
   </body>

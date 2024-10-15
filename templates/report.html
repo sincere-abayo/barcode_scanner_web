@@ -6,7 +6,7 @@
         <div class="bg-black rounded-md shadow-sm shadow-zinc-900 border-l-4 border-yellow-600">
             <div class="text-center relative px-3 py-5">
                 <h2 class="text-xl text-white font-semibold mb-2"> <i class="fa-solid fa-cubes-stacked"></i> Entry Products</h2>
-                <p class="text-3xl font-bold text-yellow-600">125</p>
+                <p class="text-3xl font-bold text-yellow-600">{{ entry_count }}</p>
                 <i class="fa-solid fa-cubes-stacked text-zinc-950 text-6xl absolute bottom-0 top-1 right-0"></i>
             </div>
             <a href="#" class="w-full bg-yellow-600 p-1 font-medium rounded-b-sm hover:bg-yellow-700 block text-center view-all" data-target="product-entry-table">
@@ -17,141 +17,216 @@
         <div class="bg-black rounded-md shadow-sm shadow-zinc-900 border-l-4 border-yellow-600">
             <div class="text-center relative px-3 py-5">
                 <h2 class="text-xl text-white font-semibold mb-2"> <i class="fa-solid fa-cubes-stacked"></i> Exit Products</h2>
-                <p class="text-3xl font-bold text-yellow-600">234</p>
+                <p class="text-3xl font-bold text-yellow-600">{{ exit_count }}</p>
                 <i class="fa-solid fa-cubes-stacked text-zinc-950 text-6xl absolute bottom-0 top-1 right-0"></i>
             </div>
             <a href="#" class="w-full bg-yellow-600 p-1 font-medium rounded-b-sm hover:bg-yellow-700 block text-center view-all" data-target="product-exit-table">
                 View all <i class="fa fa-eye"></i>
             </a>
         </div>
-
-        <!-- <div class="bg-black rounded-md shadow-sm shadow-zinc-900 border-l-4 border-yellow-600">
-            <div class="text-center relative px-3 py-5">
-                <h2 class="text-xl text-white font-semibold mb-2"> <i class="fa-solid fa-user-graduate"></i> Entry Students</h2>
-                <p class="text-3xl font-bold text-yellow-600">78</p>
-                <i class="fa-solid fa-user-graduate text-zinc-950 text-5xl absolute bottom-0 top-1 right-0"></i>
-            </div>
-            <a href="#" class="w-full bg-yellow-600 p-1 font-medium rounded-b-sm hover:bg-yellow-700 block text-center view-all" data-target="student-entry-table">
-                View all <i class="fa fa-eye"></i>
-            </a>
-        </div>
-
-        <div class="bg-black rounded-md shadow-sm shadow-zinc-900 border-l-4 border-yellow-600">
-            <div class="text-center relative px-3 py-5">
-                <h2 class="text-xl text-white font-semibold mb-2"> <i class="fa-solid fa-user-graduate"></i> Exit Students</h2>
-                <p class="text-3xl font-bold text-yellow-600">15000</p>
-                <i class="fa-solid fa-user-graduate text-zinc-950 text-5xl absolute bottom-0 top-1 right-0"></i>
-            </div>
-            <a href="#" class="w-full bg-yellow-600 p-1 font-medium rounded-b-sm hover:bg-yellow-700 block text-center view-all" data-target="student-exit-table">
-                View all <i class="fa fa-eye"></i>
-            </a>
-        </div> -->
     </div>
 </div>
 
 <div class="bg-black mt-6 p-5 rounded mb-10">
     <div class="overflow-x-auto">
-        <table id="student-entry-table" class="w-full text-white hidden">
-            <caption class="text-white">Student Entry</caption>
-            <thead>
-                <tr>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Names <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">Reg No <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial"> Department <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="details"> Program <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Gender <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Year of Study <i class="fa-solid fa-sort"></i></th>
-                </tr>
-            </thead>
-            <tbody id="tableRow">
-                <tr>
-                    <td class="border-b border-zinc-700 px-4 py-3">1</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">John Doe</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">REG001</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Computer Science</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Bachelor of Science</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Male</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">2</td>
-                </tr>
-                <tr>
-                    <td class="border-b border-zinc-700 px-4 py-3">2</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Jane Smith</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">REG002</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Engineering</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Bachelor of Engineering</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Female</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">3</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table id="product-entry-table" class="w-full text-white mt-5 hidden">
+        <table id="product-entry-table" class="w-full text-white hidden">
             <caption class="text-white">Product Entry</caption>
             <thead>
                 <tr>
                     <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
                     <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Product Name <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">category <i class="fa-solid fa-sort"></i></th>
+                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">Category <i class="fa-solid fa-sort"></i></th>
                     <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial">Serial Number <i class="fa-solid fa-sort"></i></th>
-                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="details">Details <i class="fa-solid fa-sort"></i></th>
                     <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Owner <i class="fa-solid fa-sort"></i></th>
                     <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Registered <i class="fa-solid fa-sort"></i></th>
                 </tr>
             </thead>
-            <tbody id="productTableBody">
+            <tbody id="product-entry-table">
+                {% for product in products %}
+                    {% if product[6] == 'entry' %}
+                        <tr>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ loop.index }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[1] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[3] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[4] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[2] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[7] }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="mt-4 flex bs-ext-btn justify-between items-center hidden">
+            <div>
+                <span class="text-zinc-400">Showing <span id="startIndex">1</span> to <span id="endIndex">10</span> of <span id="totalItems">0</span> entries</span>
+            </div>
+            <div class="pagination-controls mt-4">
+                <button id="product-entry-table-prev" class="pagination-prev bg-yellow-600 px-4 py-2 rounded" data-target="product-exit-table">Previous</button>
+                <button id="product-entry-table-next" class="pagination-next bg-yellow-600 px-4 py-2 rounded ml-2" data-target="product-exit-table">Next</button>
+            </div>
+        </div>
+        <table id="product-exit-table" class="w-full text-white mt-5 hidden">
+            <caption class="text-white">Product Exit</caption>
+            <thead>
                 <tr>
-                    <td class="border-b border-zinc-700 px-4 py-3">1</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Laptop</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Electronics</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">LPT001</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">15-inch, 8GB RAM</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">John Doe</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">2023-05-15</td>
+                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="id">#ID <i class="fa-solid fa-sort"></i></th>
+                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="name">Product Name <i class="fa-solid fa-sort"></i></th>
+                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="category">Category <i class="fa-solid fa-sort"></i></th>
+                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="serial">Serial Number <i class="fa-solid fa-sort"></i></th>
+                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="owner">Owner <i class="fa-solid fa-sort"></i></th>
+                    <th class="border-b border-zinc-700 px-4 text-zinc-400 py-3 cursor-pointer" data-sort="timeGetOut">Exited <i class="fa-solid fa-sort"></i></th>
                 </tr>
-                <tr>
-                    <td class="border-b border-zinc-700 px-4 py-3">2</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Smartphone</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Electronics</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">SPH002</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">6.2-inch, 128GB</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Jane Smith</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">2023-05-16</td>
-                </tr>
-                <tr>
-                    <td class="border-b border-zinc-700 px-4 py-3">3</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Desk Chair</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Furniture</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">DCH003</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Ergonomic, Black</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">Mike Johnson</td>
-                    <td class="border-b border-zinc-700 px-4 py-3">2023-05-17</td>
-                </tr>
+            </thead>
+            <tbody id="product-exit-table">
+                {% for product in products %}
+                    {% if product[6] == 'exit' %}
+                        <tr>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ loop.index }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[1] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[3] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[4] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[2] }}</td>
+                            <td class="border-b border-zinc-700 px-4 py-3">{{ product[7] }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
             </tbody>
         </table>  
+        <div class="mt-4 flex bs-ext-btn justify-between items-center hidden">
+            <div>
+                <span class="text-zinc-400">Showing <span id="startIndex">1</span> to <span id="endIndex">10</span> of <span id="totalItems">0</span> entries</span>
+            </div>
+            <div class="pagination-controls mt-4">
+                <button id="product-exit-table-prev" class="pagination-prev bg-yellow-600 px-4 py-2 rounded" data-target="product-exit-table">Previous</button>
+                <button id="product-exit-table-next" class="pagination-next bg-yellow-600 px-4 py-2 rounded ml-2" data-target="product-exit-table">Next</button>
+            </div>
+        </div>
+        
     </div>
+    
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const viewAllButtons = document.querySelectorAll('.view-all');
-    const tables = document.querySelectorAll('table');
-
-    viewAllButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetTableId = this.getAttribute('data-target');
-            const targetTable = document.getElementById(targetTableId);
-            
-            if (targetTable.classList.contains('hidden')) {
-                tables.forEach(table => table.classList.add('hidden'));
-                targetTable.classList.remove('hidden');
-            } else {
-                targetTable.classList.add('hidden');
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewAllButtons = document.querySelectorAll('.view-all');
+        const tables = document.querySelectorAll('table');
+        const bsButton = document.querySelector('.bs-btn');
+        const bsExtButton = document.querySelector('.bs-ext-btn');
+    
+        viewAllButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetTableId = this.getAttribute('data-target');
+                const targetTable = document.getElementById(targetTableId);
+                
+                if (targetTable.classList.contains('hidden')) {
+                    tables.forEach(table => table.classList.add('hidden'));
+                    targetTable.classList.remove('hidden');
+                    if (targetTableId === 'product-entry-table') {
+                        bsButton.classList.remove('hidden');
+                    } else if (targetTableId === 'product-exit-table') {
+                        bsExtButton.classList.remove('hidden');
+                    }
+                    renderTable(targetTableId);
+                } else {
+                    targetTable.classList.add('hidden');
+                    if (targetTableId === 'product-entry-table') {
+                        bsButton.classList.add('hidden');
+                    } else if (targetTableId === 'product-exit-table') {
+                        bsExtButton.classList.add('hidden');
+                    }
+                }
+            });
         });
+    
+        let currentPage = 1;
+        const itemsPerPage = 10;
+    
+        function renderTable(tableId) {
+            // const table = document.getElementById(tableId);
+
+            // const tbody = table.querySelector('tbody');
+            const table = document.getElementById(tableId);
+    if (!table) {
+        console.warn(`Table with id "${tableId}" not found`);
+        return;
+    }
+    
+    const tbody = table.querySelector('tbody');
+    if (!tbody) {
+        console.warn(`Tbody not found in table with id "${tableId}"`);
+        return;
+    }
+    
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+            // const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, rows.length);
+            
+            rows.forEach((row, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            updatePaginationInfo(tableId, startIndex + 1, endIndex, rows.length);
+            updatePaginationButtons(rows.length, tableId);
+        }
+    
+        function updatePaginationInfo(tableId, start, end, total) {
+    const container = document.querySelector(tableId === 'product-entry-table' ? '.bs-btn' : '.bs-ext-btn');
+    if (container) {
+        const startElement = container.querySelector('#startIndex');
+        const endElement = container.querySelector('#endIndex');
+        const totalElement = container.querySelector('#totalItems');
+        
+        if (startElement) startElement.textContent = start;
+        if (endElement) endElement.textContent = end;
+        if (totalElement) totalElement.textContent = total;
+    }
+}
+
+    
+function updatePaginationButtons(totalItems, tableId) {
+    const prevButton = document.querySelector(`#${tableId}-prev`);
+    const nextButton = document.querySelector(`#${tableId}-next`);
+    
+    if (prevButton) prevButton.disabled = currentPage === 1;
+    if (nextButton) nextButton.disabled = currentPage >= Math.ceil(totalItems / itemsPerPage);
+}
+
+    
+        document.querySelectorAll('.pagination-prev').forEach(button => {
+            button.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(this.getAttribute('data-target'));
+                }
+            });
+        });
+    
+        document.querySelectorAll('.pagination-next').forEach(button => {
+            button.addEventListener('click', function() {
+                const tableId = this.getAttribute('data-target');
+                const table = document.getElementById(tableId);
+                const totalItems = table.querySelectorAll('tbody tr').length;
+                
+                if (currentPage < Math.ceil(totalItems / itemsPerPage)) {
+                    currentPage++;
+                    renderTable(tableId);
+                }
+            });
+        });
+    
+        // Initial render
+        renderTable('product-entry-table');
+        renderTable('product-exit-table');
     });
-});
-</script>
+    </script>
+    
 
 {% endblock %}
